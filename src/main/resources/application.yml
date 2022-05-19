@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/jpashop;MVCC=TRUE
+      username: root
+      password: tnwls5722!
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+  
+ 
