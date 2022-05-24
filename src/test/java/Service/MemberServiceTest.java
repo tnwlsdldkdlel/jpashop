@@ -46,9 +46,13 @@ public class MemberServiceTest {
 		member2.setName("sujin2");
 		
 		memberService.join(member1);
-		memberService.join(member2);
+		
+		try {
+			memberService.join(member2);	
+		} catch (IllegalArgumentException e) {
+			return;  
+			
+		}
 		
 	}
-	
-
 }
