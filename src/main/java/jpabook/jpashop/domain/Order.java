@@ -18,13 +18,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "orders")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 	
 	@Id @GeneratedValue
@@ -56,6 +59,54 @@ public class Order {
 	public void addOrderItem(OrderItem orderItem) {
 		orderItems.add(orderItem);
 		orderItem.setOrder(this);
+	}
+	
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
+		delivery.setOrder(this);
+	}
+	
+	// 생성메소드 
+	public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+		Order order = new Order();
+		order.setDelivery(delivery);
+		order.setMember(member);
+		for(OrderItem orderItem : orderItems) {
+			order.addOrderItem(orderItem);
+		}
+		
+		order.setStatus(OrderStatus.ORDER);
+		order.setOrderDate(LocalDateTime.now());
+		
+		return order;
+	}
+	
+	// 주문취소 
+	public void cancle() {
+		if(delivery.getStatus() == DeliveryStatus.COMP) { // 배송완료인경우 주문취소 불가능 
+			throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+		}
+		
+		this.setStatus(OrderStatus.CANCEL);
+		
+		for(OrderItem orderItem : this.orderItems) {
+			orderItem.cancle();
+		}
+	}
+	
+	// 조회로직
+	// 전체 주문 가격 조회 
+	public int getTotalPrice() {
+//		int totalPrice = 0;
+//		for(OrderItem orderItem : this.orderItems) {
+//			totalPrice += orderItem.getTotalPrice();
+//		}
+		
+		int totalPrice = orderItems.stream()
+				.mapToInt(OrderItem::getTotalPrice)
+				 .sum();
+		
+		return totalPrice;
 	}
 
 }
