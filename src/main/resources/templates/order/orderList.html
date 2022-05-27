@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
@@ -8,30 +9,30 @@
 			<div>
 				<form th:object="${orderSearch}" class="form-inline">
 					<div class="form-group mb-2">
-						<input type="text" th:field="*{memberName}" class="formcontrol"
-							placeholder="х╦©Ь╦М" />
+						<input type="text" th:field="*{memberName}" class="form- control"
+							placeholder="М ▄Л⌡░К╙┘" />
 					</div>
 					<div class="form-group mx-sm-1 mb-2">
 						<select th:field="*{orderStatus}" class="form-control">
-							<option value="">аж╧╝╩Себ</option>
+							<option value="">Лё╪К╛╦Л┐│М┐°</option>
 							<option
 								th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"
 								th:value="${status}" th:text="${status}">option</option>
 						</select>
 					</div>
-					<button type="submit" class="btn btn-primary mb-2">╟к╩Ж</button>
+					<button type="submit" class="btn btn-primary mb-2">Й╡─Л┐┴</button>
 				</form>
 			</div>
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>х╦©Ь╦М</th>
-						<th>╢Кг╔╩Сг╟ юл╦╖</th>
-						<th>╢Кг╔╩Сг╟ аж╧╝╟║╟щ</th>
-						<th>╢Кг╔╩Сг╟ аж╧╝╪Ж╥╝</th>
-						<th>╩Себ</th>
-						<th>юо╫ц</th>
+						<th>М ▄Л⌡░К╙┘</th>
+						<th>К▄─М▒°Л┐│М▓┬ Л²╢К╕└</th>
+						<th>К▄─М▒°Л┐│М▓┬ Лё╪К╛╦Й╟─Й╡╘</th>
+						<th>К▄─М▒°Л┐│М▓┬ Лё╪К╛╦Л┬≤К÷┴</th>
+						<th>Л┐│М┐°</th>
+						<th>Л²╪Л▀°</th>
 						<th></th>
 					</tr>
 				</thead>
