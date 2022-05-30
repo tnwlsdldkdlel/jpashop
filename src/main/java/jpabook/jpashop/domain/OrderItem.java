@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,10 +30,12 @@ public class OrderItem {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item_id")
+	@JsonIgnore
 	private Item item;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
+	@JsonIgnore
 	private Order order;
 
 	private int orderPrice;
