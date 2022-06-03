@@ -30,16 +30,27 @@ public class OrderQueryRepository {
 	public List<OrderQueryDto> findAllByDto_optimization() {
 		List<OrderQueryDto> result = findOrders();
 		
-		List<Long> orderIds = result.stream().map( o -> o.getOrderId()).collect(Collectors.toList());
+		List<Long> orderIds = toOrderIds(result);
+		Map<Long, List<OrderItemQueryDto>> orderItemMap = findOrderItemMap(orderIds);
 		
+		result.forEach(o -> o.setOrderItems(orderItemMap.get(o.getOrderId())));
+		
+		return result;
+	}
+	
+	public List<Long> toOrderIds(List<OrderQueryDto> result) {
+		return result.stream().map( o -> o.getOrderId()).collect(Collectors.toList());
+	} 
+	
+	public Map<Long, List<OrderItemQueryDto>> findOrderItemMap(List<Long> orderIds) {
 		List<OrderItemQueryDto> orderItems = em.createQuery("select new jpabook.jpashop.repository.order.query.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)"
 				+ " from OrderItem oi"
 				+ " join oi.item i"
-				+ " where oi.order.id in :orderIds", OrderItemQueryDto.class)
+				+ " where oi.order.id i	n :orderIds", OrderItemQueryDto.class)
 				.setParameter("orderIds", orderIds)
 				.getResultList();
 		
-		Map<Long, >
+		return orderItems.stream().collect(Collectors.groupingBy(orderItemQueryDto -> orderItemQueryDto.getOrderId()));
 	}
 	
 	//ToMany : row수가 증가하므로 forEach로 조회 -> n+1 문제 발생.
