@@ -6,6 +6,7 @@ spring:
    password: tnwls5722!
 
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: create
     properties:
