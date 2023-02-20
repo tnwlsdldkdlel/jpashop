@@ -53,7 +53,12 @@ public class Order {
 	}
 	
 	public void setOrderItmes(OrderItem orderItem) {
-		orderItems.add(this);
-		
+		orderItems.add(orderItem);
+		orderItem.setOrder(this);
+	}
+	
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
+		delivery.setOrder(this);
 	}
 }
