@@ -1,20 +1,18 @@
 spring:
   datasource:
-   driver-class-name: com.mysql.cj.jdbc.Driver
-   url: jdbc:mysql://localhost:3306/jpashop
-   username: root
-   password: tnwls5722!
+    url: jdbc:mysql://localhost:3306/jpa?useSSL=false&amp
+    username: root
+    password: tnwls5722!
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    open-in-view: false
     hibernate:
       ddl-auto: create
     properties:
-      hibernate: 
-       format_sql: true
-       default_batch_fetch_size: 1000
-
+      hibernate:
+        format_sql: true
+        
 logging:
   level:
     org.hibernate.SQL: debug
-    org.hibernate.type: trace
+  

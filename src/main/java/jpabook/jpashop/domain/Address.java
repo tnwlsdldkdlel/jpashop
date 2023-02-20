@@ -1,7 +1,6 @@
 package jpabook.jpashop.domain;
 
-import javax.persistence.Embeddable;
-
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 @Embeddable
@@ -11,8 +10,10 @@ public class Address {
 	private String city;
 	private String street;
 	private String zipcode;
-
+	
+	// 함부로 호출 못하도록 막아둠.
 	protected Address() {
+		
 	}
 
 	public Address(String city, String street, String zipcode) {
