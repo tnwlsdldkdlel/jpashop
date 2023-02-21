@@ -10,15 +10,13 @@ import jpabook.jpashop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor // final 가지고있는 객체만 생성자를 만들어줌.
 public class MemberService {
 	
 	private final MemberRepository memberRespository;
 
-	
 	// 회원가입
-	@Transactional
 	public Long join(Member member) {
 		validateDuplicateMember(member);
 		memberRespository.save(member);
@@ -27,9 +25,9 @@ public class MemberService {
 	}
 
 	private void validateDuplicateMember(Member member) {
-		Member findMembers = memberRespository.findByName(member.getName());
+		List<Member> findMembers = memberRespository.findByName(member.getName());
 
-		if (findMembers == null) {
+		if (!findMembers.isEmpty()) {
 			throw new IllegalStateException("이미 존재하는 회원입니다.");
 		}
 	}
